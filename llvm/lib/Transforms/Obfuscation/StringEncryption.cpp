@@ -518,7 +518,7 @@ void StringEncryption::deleteUnusedGlobalVariable() {
         if (GV->hasInitializer()) {
           Constant *Init = GV->getInitializer();
           GV->setInitializer(nullptr);
-          if (isSafeToDestroyConstant(Init))
+          if (Init->isConstantUsed())
             Init->destroyConstant();
         }
         Iter = MaybeDeadGlobalVars.erase(Iter);
